@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inkbound — Writing competitions for writers who need a deadline</title>
+<meta name="description" content="Inkbound — eight global writing challenges, 48-hour deadlines, three-round elimination, real prizes, real publication. (Stencil/wireframe; brand name is a placeholder.)">
+<style>
+  :root {
+    --bg:#0e1117; --panel:#161b22; --panel2:#1f2630; --line:#30363d;
+    --ink:#e6edf3; --ink-dim:#9da7b3; --ink-mute:#6b7480;
+    --accent:#ffb347; --accent2:#7aa6ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:14px/1.5 -apple-system,BlinkMacSystemFont,"SF Pro Text",Helvetica,Arial,sans-serif}
+  a{color:var(--accent2);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1280px;margin:0 auto;padding:18px 22px 60px}
+
+  /* TOP NAV */
+  .topnav{display:flex;align-items:center;justify-content:space-between;padding:14px 0 18px;border-bottom:1px solid var(--line);margin-bottom:24px;gap:24px;flex-wrap:wrap}
+  .brand{font-size:18px;font-weight:800;letter-spacing:1px;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .brand-mark{color:var(--accent);font-size:22px}
+  .brand-tag{font-weight:400;font-size:11px;color:var(--ink-mute);letter-spacing:0.4px;text-transform:uppercase;margin-left:8px}
+  .topnav-links{display:flex;align-items:center;gap:22px;font-size:13px}
+  .topnav-links a{color:var(--ink-dim);text-decoration:none}
+  .topnav-links a:hover{color:var(--ink)}
+  .topnav-links a.topnav-cta{padding:6px 12px;border-radius:6px;border:1px solid var(--line);color:var(--ink)}
+  .topnav-links a.topnav-cta.primary{background:var(--accent);color:#0e1117;border-color:var(--accent);font-weight:700}
+
+  /* HERO */
+  .home-hero{padding:48px 24px 36px;background:linear-gradient(180deg,#15202c 0%,var(--panel) 100%);border:1px solid var(--line);border-radius:14px;margin-bottom:36px;text-align:center}
+  .home-hero-tag{display:inline-block;padding:4px 12px;background:rgba(255,179,71,0.12);color:var(--accent);border:1px solid rgba(255,179,71,0.25);border-radius:999px;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:22px}
+  .home-hero-title{font-size:48px;font-weight:800;letter-spacing:-0.5px;line-height:1.1;margin:0 0 18px;max-width:820px;margin-left:auto;margin-right:auto}
+  .home-hero-sub{font-size:16px;color:var(--ink-dim);max-width:680px;margin:0 auto 30px;line-height:1.6}
+  .home-hero-cta{display:flex;gap:10px;justify-content:center;margin-bottom:38px;flex-wrap:wrap}
+  .home-btn{display:inline-block;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:700;font-size:14px;cursor:pointer;border:1px solid var(--line);color:var(--ink);background:var(--panel2)}
+  .home-btn.primary{background:var(--accent);color:#0e1117;border-color:var(--accent)}
+  .home-btn.primary:hover{filter:brightness(1.1);text-decoration:none}
+  .home-btn.ghost{background:transparent}
+  .home-hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;max-width:760px;margin:0 auto;padding-top:22px;border-top:1px solid var(--line)}
+  .home-hero-stats .n{font-size:26px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}
+  .home-hero-stats .l{font-size:11px;color:var(--ink-mute);text-transform:uppercase;letter-spacing:0.5px;margin-top:4px}
+
+  /* Section */
+  .home-section{margin-bottom:48px}
+  .home-section-head{margin-bottom:20px}
+  .home-section-head h2{font-size:26px;font-weight:700;letter-spacing:-0.3px;margin:0 0 6px}
+  .home-section-sub{color:var(--ink-dim);font-size:13px}
+
+  /* Challenge grid */
+  .challenges-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+  .challenge-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;position:relative}
+  .challenge-card:hover{border-color:#555}
+  .challenge-card .ch-status{position:absolute;top:14px;right:14px;font-size:10px;font-weight:700;padding:3px 8px;border-radius:999px;text-transform:uppercase;letter-spacing:0.4px}
+  .challenge-card .ch-status.open{background:#3a5e2c;color:#a8d99c}
+  .challenge-card .ch-status.closed{background:#5a2e35;color:#ff7a8a}
+  .challenge-card .ch-status.coming{background:#5e4b25;color:#e7c069}
+  .challenge-card h3{margin:0 0 4px;font-size:16px;font-weight:700;padding-right:90px}
+  .challenge-card .ch-meta{color:var(--ink-mute);font-size:11px;text-transform:uppercase;letter-spacing:0.4px;font-weight:600}
+  .challenge-card .ch-desc{color:var(--ink-dim);font-size:12px;margin:10px 0 12px;line-height:1.5}
+  .challenge-card .ch-dates{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+  .challenge-card .ch-date-pill{background:var(--panel2);padding:3px 8px;border-radius:4px;font-size:11px;color:var(--ink-dim);font-variant-numeric:tabular-nums}
+  .challenge-card .ch-fee{color:var(--accent);font-weight:700;font-size:13px;border-top:1px solid var(--line);padding-top:10px;display:flex;justify-content:space-between;align-items:center}
+  .challenge-card .ch-fee .ch-cta{font-size:12px;color:var(--ink);background:var(--panel2);padding:4px 10px;border-radius:4px;font-weight:600;text-decoration:none}
+
+  /* How it works */
+  .how-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+  .how-step{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px}
+  .how-num{width:32px;height:32px;line-height:32px;text-align:center;border-radius:50%;background:var(--accent);color:#0e1117;font-weight:800;margin-bottom:10px;font-size:14px}
+  .how-step h3{margin:0 0 6px;font-size:15px}
+  .how-step p{margin:0;color:var(--ink-dim);font-size:13px;line-height:1.6}
+
+  /* Publishing pathways */
+  .publishing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+  .pub-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px;text-align:left}
+  .pub-icon{font-size:28px;margin-bottom:8px}
+  .pub-card h3{margin:0 0 6px;font-size:15px}
+  .pub-card p{margin:0;color:var(--ink-dim);font-size:13px;line-height:1.6}
+
+  /* Winners */
+  .winners-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+  .winner-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;text-align:left}
+  .winner-card .w-place{color:var(--accent);font-weight:800;font-size:11px;text-transform:uppercase;letter-spacing:0.5px}
+  .winner-card .w-name{font-weight:700;margin:4px 0 2px;font-size:15px}
+  .winner-card .w-loc{color:var(--ink-mute);font-size:11px;margin-bottom:8px}
+  .winner-card .w-story{color:var(--ink-dim);font-size:12px;font-style:italic;line-height:1.5}
+
+  /* Charity callout */
+  .charity-callout{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:24px 28px;background:linear-gradient(135deg,rgba(255,179,71,0.08),var(--panel));border:1px solid rgba(255,179,71,0.25);border-radius:12px;flex-wrap:wrap}
+
+  /* Testimonials */
+  .testimonial-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+  .testimonial{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px}
+  .testimonial p{margin:0 0 10px;color:var(--ink);font-size:14px;line-height:1.55;font-style:italic}
+  .t-author{color:var(--ink-mute);font-size:11px;font-weight:600}
+
+  /* Newsletter */
+  .newsletter-box{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:22px 28px;background:var(--panel);border:1px solid var(--line);border-radius:12px;flex-wrap:wrap}
+  .newsletter-form{display:flex;gap:8px}
+  .newsletter-form input{background:var(--panel2);border:1px solid var(--line);color:var(--ink);padding:9px 12px;border-radius:6px;min-width:240px;font-size:13px}
+  .newsletter-form button{background:var(--accent);color:#0e1117;border:0;padding:9px 18px;border-radius:6px;cursor:pointer;font-weight:700;font-size:13px}
+
+  /* Cross-link to NYC Midnight analysis */
+  .crosslink{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:18px 22px;background:var(--panel2);border:1px dashed var(--line);border-radius:10px;flex-wrap:wrap}
+
+  /* Footer */
+  .home-footer{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:24px;padding:30px 0;border-top:1px solid var(--line)}
+  .hf-col h4{color:var(--ink);margin:0 0 10px;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;font-weight:700}
+  .hf-col a{display:block;color:var(--ink-dim);font-size:13px;padding:2px 0;text-decoration:none;cursor:pointer}
+  .hf-col a:hover{color:var(--ink)}
+  .home-footer-legal{padding:18px 0;color:var(--ink-mute);font-size:11px;text-align:center;border-top:1px solid var(--line)}
+
+  @media (max-width: 700px) {
+    .home-hero-title{font-size:32px}
+    .topnav-links{font-size:12px;gap:14px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="topnav">
+    <div class="brand"><span class="brand-mark">●</span> INKBOUND <span class="brand-tag">writing competitions · placeholder name</span></div>
+    <div class="topnav-links">
+      <a href="#challenges">Challenges</a>
+      <a href="#how">How it works</a>
+      <a href="#publishing">Publishing</a>
+      <a href="#winners">Winners</a>
+      <a href="#" class="topnav-cta">Sign in</a>
+      <a href="#" class="topnav-cta primary">Register</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="home-hero">
+    <div class="home-hero-tag">Eight challenges · 48-hour deadlines · Stories that get read</div>
+    <h2 class="home-hero-title">Writing competitions for writers who need a real deadline.</h2>
+    <p class="home-hero-sub">Inkbound runs eight global writing challenges across short fiction, microfiction, screenwriting, and rhyming verse. Get a prompt, write under pressure, get judged anonymously by working editors, advance through three rounds, and — if you make the cut — get published and paid.</p>
+    <div class="home-hero-cta">
+      <a class="home-btn primary" href="#challenges">View open challenges</a>
+      <a class="home-btn ghost" href="#how">How it works →</a>
+    </div>
+    <div class="home-hero-stats">
+      <div><div class="n">8</div><div class="l">annual challenges</div></div>
+      <div><div class="n">3,500+</div><div class="l">writers / round</div></div>
+      <div><div class="n">$12K</div><div class="l">prize pool / challenge</div></div>
+      <div><div class="n">49</div><div class="l">countries</div></div>
+    </div>
+  </div>
+
+  <!-- CHALLENGE GRID -->
+  <section class="home-section" id="challenges">
+    <div class="home-section-head">
+      <h2>Eight challenges, year-round</h2>
+      <div class="home-section-sub">Each runs as a 3-round elimination over ~3 months. One entry fee covers all rounds.</div>
+    </div>
+    <div class="challenges-grid" id="challengesGrid"></div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="home-section" id="how">
+    <div class="home-section-head">
+      <h2>How a challenge works</h2>
+      <div class="home-section-sub">Same mechanic across all eight formats. Different word count, different genre rules.</div>
+    </div>
+    <div class="how-steps">
+      <div class="how-step"><div class="how-num">1</div><h3>Get your prompt</h3><p>You're placed into a group of ~40 writers. Everyone in your group gets the same <strong>genre</strong>, <strong>action</strong>, and <strong>object</strong> assignment. You have <strong>48 hours</strong> to write an original story from scratch.</p></div>
+      <div class="how-step"><div class="how-num">2</div><h3>Anonymous judging</h3><p>Stories are stripped of author info. Judges are working editors, agents, and published authors. <strong>Top 10 of 40</strong> in each group advance to round 2 with detailed feedback.</p></div>
+      <div class="how-step"><div class="how-num">3</div><h3>Advance &amp; publish</h3><p>Round 2 reshuffles you into new groups (~22 of 40). <strong>Top 4 advance</strong>. Final round: open genre, single pool, <strong>top 10 win cash + publication</strong>.</p></div>
+    </div>
+  </section>
+
+  <!-- PUBLISHING -->
+  <section class="home-section" id="publishing">
+    <div class="home-section-head">
+      <h2>Publishing beyond the prize</h2>
+      <div class="home-section-sub">Winning isn't where the story stops. Three pathways open up for every advancing writer.</div>
+    </div>
+    <div class="publishing-grid">
+      <div class="pub-card">
+        <div class="pub-icon">📚</div>
+        <h3>Annual print anthology</h3>
+        <p>Every challenge's top-25 are collected into a print + digital anthology each year, distributed through indie bookstores and our online store. Writers retain rights; Inkbound licenses one-time use.</p>
+      </div>
+      <div class="pub-card">
+        <div class="pub-icon">🌐</div>
+        <h3>Online lit journal</h3>
+        <p>Finalists and select honorable mentions get featured on <strong>Inkbound Quarterly</strong> — our online literary magazine with 40K monthly readers. Paid byline.</p>
+      </div>
+      <div class="pub-card">
+        <div class="pub-icon">🤝</div>
+        <h3>Editor &amp; agent intros</h3>
+        <p>Round-3 finalists are introduced to a rotating panel of literary agents and acquisitions editors at independent presses who pre-commit to reading challenge winners.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAST WINNERS -->
+  <section class="home-section" id="winners">
+    <div class="home-section-head">
+      <h2>Recent winners</h2>
+      <div class="home-section-sub">Placeholder names — replace with real winner data once the first cycle wraps.</div>
+    </div>
+    <div class="winners-row" id="winnersRow"></div>
+  </section>
+
+  <!-- CHARITY -->
+  <section class="home-section" id="charity">
+    <div class="charity-callout">
+      <div>
+        <div class="home-section-sub" style="margin:0 0 4px;text-transform:uppercase;letter-spacing:0.6px;font-weight:700;color:var(--accent)">Charity</div>
+        <h2 style="margin:0 0 8px">2% of every entry fee → writer-chosen charities</h2>
+        <p style="color:var(--ink-dim);margin:0;max-width:640px">Each writer picks one of seven supported organizations at checkout. Receipts published quarterly.</p>
+      </div>
+      <a class="home-btn ghost" href="#">See recipients</a>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="home-section" id="testimonials">
+    <div class="home-section-head">
+      <h2>From past participants</h2>
+      <div class="home-section-sub">All quotes are placeholders. Replace with real testimonials.</div>
+    </div>
+    <div class="testimonial-grid">
+      <div class="testimonial"><p>"The 48-hour clock taught me to finish drafts. I'd been sitting on the same novel chapter for two years."</p><div class="t-author">— [Writer name], 2-time finalist</div></div>
+      <div class="testimonial"><p>"My round-2 story got picked up by [magazine]. None of that happens without the deadline forcing me to ship."</p><div class="t-author">— [Writer name], short story, 2024</div></div>
+      <div class="testimonial"><p>"Best $45 I've spent on writing. Worth it just for the judge feedback."</p><div class="t-author">— [Writer name], microfiction, 2025</div></div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="home-section" id="newsletter">
+    <div class="newsletter-box">
+      <div>
+        <h2 style="margin:0 0 6px">Get challenge announcements</h2>
+        <p style="color:var(--ink-dim);margin:0">Open dates, prompts, results. No marketing fluff.</p>
+      </div>
+      <form class="newsletter-form" onsubmit="event.preventDefault();this.querySelector('button').textContent='Subscribed (mockup)'">
+        <input type="email" placeholder="you@example.com" required>
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- CROSS-LINK -->
+  <section class="home-section">
+    <div class="crosslink">
+      <div>
+        <div style="color:var(--ink-mute);font-size:11px;text-transform:uppercase;letter-spacing:0.5px;font-weight:700">Companion analysis project</div>
+        <h3 style="margin:6px 0 4px">NYC Midnight 2026 — analytics dashboard</h3>
+        <p style="color:var(--ink-dim);margin:0;font-size:13px">3,456 real writers researched. Group competitive density scores. Per-writer publishing history. Animated bracket. A separate project that helped shape this stencil.</p>
+      </div>
+      <a class="home-btn primary" href="https://tomgarske.github.io/nycm-2026/" target="_blank" rel="noopener">Open analysis →</a>
+    </div>
+  </section>
+
+  <!-- FOOTER LINKS -->
+  <section class="home-section">
+    <div class="home-footer">
+      <div class="hf-col">
+        <h4>Challenges</h4>
+        <a>100-word Microfiction</a><a>250-word Microfiction</a><a>500-word Fiction</a><a>Flash Fiction</a><a>Rhyming Story</a><a>Scary Story</a><a>Screenwriting</a><a>Short Story</a>
+      </div>
+      <div class="hf-col">
+        <h4>For writers</h4>
+        <a>Calendar</a><a>Rules</a><a>FAQ</a><a>Forum</a><a>Judging criteria</a><a>Past winners</a>
+      </div>
+      <div class="hf-col">
+        <h4>Publishing</h4>
+        <a>Annual anthology</a><a>Inkbound Quarterly</a><a>Submission guidelines</a><a>Editor panel</a>
+      </div>
+      <div class="hf-col">
+        <h4>About</h4>
+        <a>Mission</a><a>Team</a><a>Charity partners</a><a>Press</a><a>Contact</a>
+      </div>
+    </div>
+    <div class="home-footer-legal">© 2026 Inkbound · stencil/wireframe · brand name and all content are placeholders</div>
+  </section>
+
+</div>
+
+<script>
+const CHALLENGES = [
+  {name: "100-word Microfiction",  fmt: "100 words · genre + word + character",      fee: "$35", desc: "The micro round — tighter than a sonnet. Annual cycle.",       next: "Round 1: Jan 17–18",  status: "coming"},
+  {name: "250-word Microfiction",  fmt: "250 words · genre + character + word",      fee: "$40", desc: "Twice the room, same constraint. International field.",         next: "Round 1: Mar 7–8",    status: "coming"},
+  {name: "500-word Fiction",       fmt: "500 words · genre + action + object",       fee: "$45", desc: "Three rounds, 48 hours each. Largest single-year prize pool.",  next: "Round 2: Jul 17–19",  status: "open"},
+  {name: "Flash Fiction",          fmt: "1,000 words · genre + location + object",   fee: "$55", desc: "The classic format. Longest-running on the calendar.",          next: "Round 1: Aug 22–23",  status: "coming"},
+  {name: "Rhyming Story",          fmt: "300 lines · meter + rhyme scheme + theme",  fee: "$45", desc: "Verse narrative, scored on form + story.",                       next: "Round 1: Oct 3–4",    status: "coming"},
+  {name: "Scary Story",            fmt: "1,500 words · subgenre + setting + object", fee: "$55", desc: "Horror-only annual. Judges include working horror editors.",    next: "Round 1: Oct 24–25",  status: "coming"},
+  {name: "Screenwriting",          fmt: "5 pages · genre + subject + character",     fee: "$65", desc: "Short screenplay. Top finalists table-read live.",              next: "Round 1: Closed",      status: "closed"},
+  {name: "Short Story",            fmt: "2,500 words · genre + subject + character", fee: "$70", desc: "The flagship — biggest prize pool, hardest competition.",       next: "Round 1: Feb 21–28",  status: "closed"},
+];
+
+document.getElementById("challengesGrid").innerHTML = CHALLENGES.map(c => {
+  const statusLabel = c.status === 'open' ? 'Open now' : c.status === 'closed' ? 'Closed' : 'Coming soon';
+  const ctaLabel = c.status === 'open' ? 'Register' : c.status === 'closed' ? 'Results' : 'Notify me';
+  return `<div class="challenge-card">
+    <span class="ch-status ${c.status}">${statusLabel}</span>
+    <h3>${c.name}</h3>
+    <div class="ch-meta">${c.fmt}</div>
+    <div class="ch-desc">${c.desc}</div>
+    <div class="ch-dates"><span class="ch-date-pill">${c.next}</span></div>
+    <div class="ch-fee">${c.fee} entry<a class="ch-cta" href="#">${ctaLabel}</a></div>
+  </div>`;
+}).join("");
+
+// Placeholder winners — replace with real data once the first cycle runs
+const WINNERS = [
+  {year: 2025, place: "#1", name: "[Winner name]",      loc: "[City], [Country]",   story: "[Winning story title]"},
+  {year: 2025, place: "#2", name: "[Runner-up name]",   loc: "[City], [Country]",   story: "[Story title]"},
+  {year: 2025, place: "#3", name: "[Third-place name]", loc: "[City], [Country]",   story: "[Story title]"},
+  {year: 2024, place: "#1", name: "[Winner name]",      loc: "[City], [Country]",   story: "[Winning story title]"},
+  {year: 2024, place: "#2", name: "[Runner-up name]",   loc: "[City], [Country]",   story: "[Story title]"},
+  {year: 2024, place: "#3", name: "[Third-place name]", loc: "[City], [Country]",   story: "[Story title]"},
+  {year: 2023, place: "#1", name: "[Winner name]",      loc: "[City], [Country]",   story: "[Winning story title]"},
+  {year: 2023, place: "#2", name: "[Runner-up name]",   loc: "[City], [Country]",   story: "[Story title]"},
+];
+document.getElementById("winnersRow").innerHTML = WINNERS.map(w => `<div class="winner-card">
+  <div class="w-place">${w.year} · ${w.place}</div>
+  <div class="w-name">${w.name}</div>
+  <div class="w-loc">${w.loc}</div>
+  <div class="w-story">"${w.story}"</div>
+</div>`).join("");
+</script>
+
+</body>
+</html>
